@@ -8,6 +8,7 @@ console.log('listening at 3000');
 io.on('connection', function(socket){
   console.log("Socket connected: " + socket.id);
   socket.on('action', (action) => {
+    console.log(action)
     if(action.type === 'server/hello'){
       console.log('Got hello data!', action.data);
       socket.emit('action', {type:'message', data:'good day!'});

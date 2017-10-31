@@ -5,7 +5,9 @@ class RightPane extends React.Component {
   render() {
     return (
       <div className='right'>
-
+ <div>
+            <input type='text'/>
+          </div>
         </div>
     );
   }

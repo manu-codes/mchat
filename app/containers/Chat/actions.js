@@ -2,4 +2,4 @@
 
 import {socketPrefix} from '../../../config/conf';
 
-export const HELLO = socketPrefix+'Hello';
+export const HELLO = socketPrefix+'hello';

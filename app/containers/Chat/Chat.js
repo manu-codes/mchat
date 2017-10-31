@@ -6,18 +6,19 @@ import {connect} from 'react-redux';
 import LeftPane from '../../components/LeftPane/LeftPane';
 import RightPane from '../../components/RightPane/RightPane';
 class Chat extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps');
+    console.log(nextProps);
+  }
   componentDidMount() {
-    console.log('ChatMount');
-    // let {dispatch} = this.props;
-    // dispatch('server/Hello');
-  console.log(this.props);
-  this.props.ping();
+    console.log(this.props);
+    this.props.ping('Hi server........');
   }
   render() {
     return (
       <div>
-        <LeftPane></LeftPane>
-        <RightPane></RightPane>
+        <LeftPane {...this.props}></LeftPane>
+        <RightPane {...this.props}></RightPane>
       </div>
     );
   }
@@ -26,14 +27,14 @@ class Chat extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.chatReducer,
+    response: state.chatReducer,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    ping: (id) => {
-      dispatch(ping(id));
+    ping: (data) => {
+      dispatch(ping(data));
     },
   };
 };
