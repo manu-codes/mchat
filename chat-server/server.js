@@ -11,11 +11,12 @@ io.attach(server);
 io.on('connection', function (socket) {
   console.log("Socket connected: " + socket.id);
   socket.on('action', (action) => {
-    console.log(action)
     if (action.type === 'server/hello') {
-      console.log('Got hello data!', action.data);
       socket.emit('action', { type: 'message', data: 'entered' });
     }
+    console.log('init at')
+    console.log(action)
+    
     chat.handle(socket, action);
   });
 });

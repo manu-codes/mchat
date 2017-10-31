@@ -13,11 +13,11 @@ class Chat extends React.Component {
     this.state = {loggedIn: false};
   }
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps');
-    console.log(nextProps);
-  }
-  componentDidMount() {
-    console.log(this.props);
+    if (nextProps.response && nextProps.response.data &&
+      nextProps.response.data.success &&
+      nextProps.response.data.req == 'server/addUser') {
+      this.setState({loggedIn: true});
+    }
   }
   render() {
     return (
