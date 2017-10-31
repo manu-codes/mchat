@@ -3,11 +3,12 @@
 function chatReducer(state = [], action) {
   switch (action.type) {
     case 'message': {
-      console.log(action);
       return Object.assign({}, {message: action.data});
     }
+    case 'notify': {
+      return Object.assign({}, {notify: action.data});
+    }
     default: {
-      console.log(action);
       return state;
     }
   }

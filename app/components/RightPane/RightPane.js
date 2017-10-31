@@ -2,13 +2,15 @@ import React from 'react';
 
 
 class RightPane extends React.Component {
+  constructor() {
+    super();
+  }
+
   render() {
     return (
       <div className='right'>
- <div>
-            <input type='text'/>
-          </div>
-        </div>
+        right
+      </div>
     );
   }
 }

@@ -14,7 +14,6 @@ import {socketURL, socketPrefix} from '../config/conf';
 
 export default function createStoreWithMiddleware(history, data) {
     const socket = io(socketURL);
-    console.log(socketURL);
     const reduxRouterMiddleware = routerMiddleware(history);
     const sagaMiddleware = createSagaMiddleware();
     const socketIoMiddleware = createSocketIoMiddleware(socket, socketPrefix);
