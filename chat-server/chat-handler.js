@@ -11,7 +11,7 @@ module.exports = {
                 break;
             };
             case 'server/removeUser': {
-                this.removeUser(socket, action);
+                this.removeUser(socket, action.data.userName);
                 break;
             };
             case 'server/msgTo': {
@@ -42,28 +42,32 @@ module.exports = {
         }
         this.getAllUsers(socket, action);
     },
-    removeUser: function (socket, action) {
-        if (this.users[action.data.userName]) {
-            this.users[action.data.userName] = null;
-            this.util.removeFromArray(this.userList, action.data.userName);
+    removeUser: function (socket, userName) {
+        userName = userName || this.util.getKey(this.users,socket.id);
+        console.log('logged out',userName);
+        if (this.users[userName]) {
+            this.users[userName] = null;
+            this.util.removeFromArray(this.userList, userName);
         }
-        console.log('remove')
-        this.getAllUsers(socket, action);
+        this.getAllUsers(socket);
     },
     getAllUsers: function (socket, action) {
+        console.log('active users', this.userList.length)
         socket.emit('action', this.response('notify', { 'users': this.userList }, action, true));
     },
     msgTo: function (socket, data) {
-        if (this.users[data.userName]) {
-            this.users;
-        }
+        console.log(data);
+        // if (this.users[data.userName]) {
+        //     // this.users;
+        // }
     },
     msgAll: function (socket, data) {
-        let fromUser = this.util.getKey(socket.id);
+        let fromUser = this.util.getKey(this.users,socket.id);
         socket.emit('action', { type: 'message', data: { 'from': fromUser, 'content': data.message } });
     },
     response: function (type, res, action, success) {
-        let data = { ...res, success, req: action.type };
+        let req = (action && action.type) || '',
+            data = { ...res, success, req };
         return { type, data }
     }
 };

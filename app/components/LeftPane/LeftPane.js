@@ -1,11 +1,21 @@
 import React from 'react';
-
-
-class LeftPane extends React.Component {
+import {List, ListItem} from 'material-ui/List';
+// import Paper from 'material-ui/Paper';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
+// import Subheader from 'material-ui/Subheader';
+import CommunicationChatBubble from
+  'material-ui/svg-icons/communication/chat-bubble';
+import TextField from 'material-ui/TextField';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentSend from 'material-ui/svg-icons/content/send';
+class ChatHome extends React.Component {
 
   constructor() {
     super();
-    this.state = {users: []};
+    this.state = {users: [], selectedUser: null};
+    this.onUserSelect = this.onUserSelect.bind(this);
+    this.sendMsg = this.sendMsg.bind(this);
+    this.setMsg = this.setMsg.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     // if(nextProps.users)
@@ -14,21 +24,63 @@ class LeftPane extends React.Component {
       this.setState({users: nextProps.response.notification.users});
     }
   }
-  render() {
-    console.log(this.state.users);
-    return (
-      <div className='left'>
-        <div>
+  onUserSelect(e) {
+    this.setState({selectedUser: e.target.textContent});
+  }
+  sendMsg(e) {
+    if (this.state.msg)
+      this.props.ping('server/msgTo',
+        {
+          to: this.state.selectedUser,
+          content: this.state.msg,
+        }
+      );
+  }
+  setMsg(e) {
+    this.setState({msg: e.currentTarget.value});
+  }
 
-          <ul className='users-list'>
-            {
-              this.state.users.map((user) => <li key={user}>{user}</li>)
-            }
-          </ul>
-        </div>
+  render() {
+    return (
+      <div>
+
+        <Card className='left'>
+          <CardHeader
+            title="Users"
+          />
+          <CardText >
+            <List>
+
+              {
+                this.state.users.map(
+                  (user) => <ListItem
+                    onClick={this.onUserSelect}
+                    key={user}
+
+                    rightIcon={<CommunicationChatBubble />}
+                    primaryText={user}>
+
+                  </ListItem >
+                )
+              }
+            </List>
+          </CardText>
+        </Card>
+        <Card className='left' >
+          <CardHeader title={this.state.selectedUser}></CardHeader>
+          <CardText >
+            <TextField
+              hintText="chat" className='send-txt' onChange={this.setMsg}
+            />
+            <FloatingActionButton className='send-btn' onClick={this.sendMsg}>
+              <ContentSend />
+            </FloatingActionButton>
+
+          </CardText>
+        </Card>
       </div>
     );
   }
 }
 
-export default LeftPane;
+export default ChatHome;

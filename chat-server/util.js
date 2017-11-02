@@ -6,7 +6,6 @@ module.exports = {
             }
         }
     }, getKey : function (object, value) {
-        var object = this;
-        return Object.keys(object).find(key => object[key] === value);
+        return object && Object.keys(object).find(key => object[key] === value);
     }
 }

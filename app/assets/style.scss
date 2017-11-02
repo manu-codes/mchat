@@ -2,15 +2,19 @@ body {
   background-color: white;
 }
 .left{
-  float: left;
-  width: 30%;
-  height: 90%;
-background-color: #bdc3c7;
+  height: 100%;
+  width: 300px;
+  float: left
 }
 .right{
   float: left;
   width: 50%;
   height: 90%;
-background-color: #ecf0f1;
 
+}
+.send-btn{
+  float: right;
+}
+.send-txt{
+  float: left;
 }

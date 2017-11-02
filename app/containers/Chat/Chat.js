@@ -3,15 +3,24 @@ import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
 // import * as chatActions from './actions';
 
-import LeftPane from '../../components/LeftPane/LeftPane';
-import RightPane from '../../components/RightPane/RightPane';
+import ChatHome from '../../components/LeftPane/LeftPane';
 import ChatLogin from '../../components/ChatLogin/ChatLogin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {deepOrange500} from 'material-ui/styles/colors';
 
+const muiTheme = getMuiTheme({
+  palette: {
+      accent1Color: deepOrange500,
+  },
+});
 class Chat extends React.Component {
+
   constructor() {
     super();
     this.state = {loggedIn: false};
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.response && nextProps.response.data &&
       nextProps.response.data.success &&
@@ -21,14 +30,14 @@ class Chat extends React.Component {
   }
   render() {
     return (
-      <div>
-
+      <MuiThemeProvider muiTheme={muiTheme}>
         {(this.state && this.state.loggedIn) ? (
-          <div>
-            <LeftPane {...this.props}></LeftPane>
-            <RightPane {...this.props}></RightPane></div>) :
+
+            <ChatHome {...this.props}></ChatHome>
+
+          ) :
           <ChatLogin {...this.props} />}
-      </div>
+     </MuiThemeProvider>
     );
   }
 }

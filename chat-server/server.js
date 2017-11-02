@@ -14,9 +14,9 @@ io.on('connection', function (socket) {
     if (action.type === 'server/hello') {
       socket.emit('action', { type: 'message', data: 'entered' });
     }
-    console.log('init at')
-    console.log(action)
-    
     chat.handle(socket, action);
   });
+socket.on('disconnect', function () {
+    chat.removeUser(socket)
+});
 });
