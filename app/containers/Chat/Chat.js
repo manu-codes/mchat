@@ -11,7 +11,7 @@ import {deepOrange500} from 'material-ui/styles/colors';
 
 const muiTheme = getMuiTheme({
   palette: {
-      accent1Color: deepOrange500,
+    accent1Color: deepOrange500,
   },
 });
 class Chat extends React.Component {
@@ -22,22 +22,24 @@ class Chat extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('LISTEN', nextProps);
     if (nextProps.response && nextProps.response.data &&
-      nextProps.response.data.success &&
-      nextProps.response.data.req == 'server/addUser') {
-      this.setState({loggedIn: true});
+      nextProps.response.data.success) {
+      if (nextProps.response.data.req == 'server/addUser')
+        this.setState({loggedIn: true,
+          loggedInAs: nextProps.response.data.user});
     }
   }
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         {(this.state && this.state.loggedIn) ? (
-
-            <ChatHome {...this.props}></ChatHome>
-
-          ) :
+          <ChatHome {...this.props}
+          loggedInAs={this.state.loggedInAs}>
+          </ChatHome>
+        ) :
           <ChatLogin {...this.props} />}
-     </MuiThemeProvider>
+      </MuiThemeProvider>
     );
   }
 }

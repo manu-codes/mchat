@@ -12,29 +12,51 @@ class ChatHome extends React.Component {
 
   constructor() {
     super();
-    this.state = {users: [], selectedUser: null};
+    this.state = {
+      users: [],
+      messages: [],
+      selectedUser: null,
+      msg: '',
+    };
     this.onUserSelect = this.onUserSelect.bind(this);
     this.sendMsg = this.sendMsg.bind(this);
     this.setMsg = this.setMsg.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    // if(nextProps.users)
     if (nextProps.response && nextProps.response.notification &&
       nextProps.response.notification.users) {
-      this.setState({users: nextProps.response.notification.users});
+      this.setState({
+        users: nextProps.response.notification.users
+          .filter((user) => user != this.props.loggedInAs),
+      });
+    }
+
+    if (nextProps.response && nextProps.response.data &&
+      nextProps.response.data.success) {
+      if (nextProps.response.data.req == 'server/msgTo') {
+        let msgs = this.state.messages.slice();
+
+        msgs.push({
+          content: nextProps.response.data.content,
+          sender: nextProps.response.data.sender,
+        });
+        this.setState({messages: msgs});
+      }
     }
   }
   onUserSelect(e) {
     this.setState({selectedUser: e.target.textContent});
   }
   sendMsg(e) {
-    if (this.state.msg)
+    if (this.state.msg) {
       this.props.ping('server/msgTo',
         {
           to: this.state.selectedUser,
           content: this.state.msg,
         }
       );
+      this.setState({msg: ''});
+    }
   }
   setMsg(e) {
     this.setState({msg: e.currentTarget.value});
@@ -56,7 +78,6 @@ class ChatHome extends React.Component {
                   (user) => <ListItem
                     onClick={this.onUserSelect}
                     key={user}
-
                     rightIcon={<CommunicationChatBubble />}
                     primaryText={user}>
 
@@ -66,16 +87,33 @@ class ChatHome extends React.Component {
             </List>
           </CardText>
         </Card>
-        <Card className='left' >
+        <Card className='right' >
           <CardHeader title={this.state.selectedUser}></CardHeader>
           <CardText >
-            <TextField
-              hintText="chat" className='send-txt' onChange={this.setMsg}
-            />
-            <FloatingActionButton className='send-btn' onClick={this.sendMsg}>
-              <ContentSend />
-            </FloatingActionButton>
-
+            <List>
+              {
+                this.state.messages.map(
+                  (msg, ind) => <ListItem
+                    key={ind}
+                    primaryText={msg.content}>
+                  </ListItem >
+                )
+              }
+            </List>
+            <div className='footer'>
+              <div className='text-cont'>
+                <TextField
+                  hintText="chat"
+                  value={this.state.msg}
+                  fullWidth
+                  className='send-txt'
+                  onChange={this.setMsg}
+                />
+              </div>
+              <FloatingActionButton className='send-btn' onClick={this.sendMsg}>
+                <ContentSend />
+              </FloatingActionButton>
+            </div>
           </CardText>
         </Card>
       </div>

@@ -9,12 +9,19 @@ body {
 .right{
   float: left;
   width: 50%;
-  height: 90%;
+  height: 100%;
+  overflow: hidden;
+  .footer {
+    position: absolute;
+    bottom: 0;
+    margin: 0 auto;
+  }
 
 }
 .send-btn{
-  float: right;
-}
-.send-txt{
   float: left;
+}
+.text-cont{
+  float: left;
+  width: calc(100% - 56px);
 }
