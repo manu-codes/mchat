@@ -3,7 +3,7 @@ body {
 }
 
 .chat-home-container {
-    height: 100%;
+    height: calc(100% - 70px);
     
     .float-left {
         float: left;

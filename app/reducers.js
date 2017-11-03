@@ -1,13 +1,13 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 
-import leftPaneReducer from './components/LeftPane/reducers.js';
+import chatHomeReducer from './components/ChatHome/reducers.js';
 import rightPaneReducer from './components/RightPane/reducers.js';
 import chatReducer from './containers/Chat/reducers.js';
 // IMPORT HERE //
 
 const rootReducer = combineReducers({
-  leftPaneReducer,
+  chatHomeReducer,
   rightPaneReducer,
   chatReducer,
   // ADD REDUCER HERE //

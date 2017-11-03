@@ -2,14 +2,14 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Main from '../Main/Main';
 
-import * as leftPaneActions from '../../components/LeftPane/actions.js';
+import * as chatHomeActions from '../../components/ChatHome/actions.js';
 import * as rightPaneActions from '../../components/RightPane/actions.js';
 import * as chatActions from '../../containers/Chat/actions.js';
 // IMPORT ACTIONS HERE //
 
 function mapStateToProps(state) {
   return {
-leftPaneData: state.leftPaneReducer,
+chatHomeData: state.chatHomeReducer,
 rightPaneData: state.rightPaneReducer,
 chatData: state.chatReducer,
 // ADD STATE RETURN //
@@ -18,7 +18,7 @@ chatData: state.chatReducer,
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(Object.assign({},
-leftPaneActions,
+chatHomeActions,
 rightPaneActions,
 chatActions,
 // ADD ACTIONS HERE //

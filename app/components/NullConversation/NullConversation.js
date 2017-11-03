@@ -14,7 +14,6 @@ class NullConversation extends React.Component {
   render() {
     return (
       <div style={styles.container}>
-
                     <h2>Start Chat</h2>
                    <br />
                     <Forum/>
