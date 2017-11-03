@@ -1,27 +1,88 @@
 body {
-  background-color: white;
+    background-color: white;
 }
-.left{
-  height: 100%;
-  width: 300px;
-  float: left
-}
-.right{
-  float: left;
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
-  .footer {
-    position: absolute;
-    bottom: 0;
-    margin: 0 auto;
-  }
 
+.chat-home-container {
+    height: 100%;
+    
+    .float-left {
+        float: left;
+    }
+    .full-height {
+        height: 100%
+    }
+    .right-card{
+      position: relative;
+    }
+    .footer {
+      position: absolute;
+      bottom: 5px;
+      width: calc(100% - 17px);
+      margin: 0 auto;
+    }
+    .send-btn {
+        float: left;
+    }
+    .text-cont {
+        float: left;
+        width: calc(100% - 56px);
+    }
 }
-.send-btn{
-  float: left;
+
+
+/* For desktop: */
+
+.col-1 {
+    width: 8.33%;
 }
-.text-cont{
-  float: left;
-  width: calc(100% - 56px);
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+        width: 100%;
+    }
 }

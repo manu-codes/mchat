@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
 // import * as chatActions from './actions';
 
+// import ChatHome from '../../components/RightPane/RightPane';
 import ChatHome from '../../components/LeftPane/LeftPane';
 import ChatLogin from '../../components/ChatLogin/ChatLogin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -22,7 +23,6 @@ class Chat extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('LISTEN', nextProps);
     if (nextProps.response && nextProps.response.data &&
       nextProps.response.data.success) {
       if (nextProps.response.data.req == 'server/addUser')
